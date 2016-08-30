@@ -6,7 +6,7 @@ if defined?(::HTTPClient)
     def do_get_block(req, proxy, conn, &block)
       url = req.header.request_uri
       if HttpActivity.options[:debug]
-        puts "HttpActivty::HTTPClient#do_get_block Url:#{url} Proxy:#{proxy} Conn:#{conn}"
+        HttpActivity.logger.debug "HTTPClient#do_get_block Url:#{url} Proxy:#{proxy} Conn:#{conn}"
       end
       if HttpActivity.ignored_activity?(url)
         orig_do_get_block(req, proxy, conn, &block)

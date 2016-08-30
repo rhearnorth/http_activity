@@ -30,11 +30,20 @@ module HttpActivity
     end
 
     def log(activity_data)
-      puts "ACTIVITY DATA: #{activity_data}" if options[:debug]
+      if options[:debug]
+        logger.debug "ACTIVITY DATA: #{activity_data}"
+      end
       activity_data.merge!(options[:additional_data]) unless options[:additional_data].nil?
       RestClient.post(options[:log_destination], activity_data.to_json)
     rescue Exception => e
-      puts "Error: #{e}"
+      logger.error e
+    end
+
+    attr_writer :logger
+    def logger
+      @logger ||= Logger.new($stdout).tap do |log|
+        log.progname = self.name
+      end
     end
   end
 end

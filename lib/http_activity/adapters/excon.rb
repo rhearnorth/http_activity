@@ -6,7 +6,9 @@ if defined?(Excon)
       def request(params, &block)
         datum = @data.merge(params)
         url = _httplog_url(datum)
-        puts "HttpActivty::Excon#request #{params}" if HttpActivity.options[:debug]
+        if HttpActivity.options[:debug]
+          HttpActivity.logger.debug "Excon#request #{params}"
+        end
         if HttpActivity.ignored_activity?(url)
           orig_request(params, &block)
         else

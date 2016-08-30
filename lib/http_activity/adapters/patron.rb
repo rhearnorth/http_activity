@@ -4,7 +4,7 @@ if defined?(Patron)
       alias_method :orig_request, :request
       def request(action_name, url, headers, options = {})
         if HttpActivity.options[:debug]
-          puts "HttpActivty::Patron#request Action:#{action_name} Url:#{url} Headers:#{headers} Options:#{options}"
+          HttpActivity.logger.debug "Patron#request Action:#{action_name} Url:#{url} Headers:#{headers} Options:#{options}"
         end
         if HttpActivity.ignored_activity?(url)
           orig_request(action_name, url, headers, options)

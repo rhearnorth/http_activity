@@ -7,7 +7,7 @@ module Net
 
       url = URI.parse("http://#{@address}:#{@port}#{req.path}")
       if HttpActivity.options[:debug]
-        puts "HttpActivty::Net::HTTP#request Url:#{url} Body:#{body}"
+        HttpActivity.logger.debug "Net::HTTP#request Url:#{url} Body:#{body}"
       end
 
       if HttpActivity.ignored_activity?(url.host)
