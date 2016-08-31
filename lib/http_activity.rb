@@ -16,7 +16,7 @@ module HttpActivity
 
   class << self
     def options
-      @@options ||= DEFAULT_OPTIONS.clone
+      Thread.current["HttpActivity"] ||= DEFAULT_OPTIONS.clone
     end
 
     def additional_data(data={})
